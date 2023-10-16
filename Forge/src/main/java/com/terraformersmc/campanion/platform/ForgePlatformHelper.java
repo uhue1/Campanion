@@ -4,6 +4,7 @@ import com.mojang.datafixers.types.Type;
 import com.terraformersmc.campanion.Campanion;
 import com.terraformersmc.campanion.platform.services.IPlatformHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -49,12 +50,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public CreativeModeTab createItemGroup(String name, Supplier<ItemStack> stack) {
-		return new CreativeModeTab(String.format("%s.%s", Campanion.MOD_ID, name)) {
-
-			public ItemStack makeIcon() {
-				return stack.get();
-			}
-		};
+		return CreativeModeTab.builder().title(Component.translatable(String.format("%s.%s", Campanion.MOD_ID, name))).icon(stack).build();
 	}
 
 	@Override

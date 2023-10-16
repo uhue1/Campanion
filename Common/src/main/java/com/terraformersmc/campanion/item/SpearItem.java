@@ -88,8 +88,7 @@ public class SpearItem extends TridentItem {
 		if (block == Blocks.COBWEB) {
 			return 15.0F;
 		} else {
-			Block material = state.getBlock();
-			return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && material != Material.MOSS && !state.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
+			return state.is(BlockTags.SWORD_EFFICIENT) ? 1.5F : 1.0F;
 		}
 	}
 

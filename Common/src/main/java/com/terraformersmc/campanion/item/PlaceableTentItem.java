@@ -2,6 +2,7 @@ package com.terraformersmc.campanion.item;
 
 import com.terraformersmc.campanion.blockentity.TentPartBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -53,7 +54,7 @@ public abstract class PlaceableTentItem extends Item {
 			BlockPos base = ((BlockHitResult) result).getBlockPos().above();
 			if (!world.isClientSide && getErrorPosition(world, base, stack).isEmpty()) {
 				BlockPos tentSize = getSize(stack);
-				traverseBlocks(stack, (pos, state, tag) -> {
+				traverseBlocks(world, stack, (pos, state, tag) -> {
 					BlockPos off = base.offset(pos);
 
 					world.setBlockAndUpdate(off, state);
@@ -99,12 +100,12 @@ public abstract class PlaceableTentItem extends Item {
 		return list;
 	}
 
-	public void traverseBlocks(ItemStack stack, TriConsumer<BlockPos, BlockState, CompoundTag> consumer) {
+	public void traverseBlocks(Level world, ItemStack stack, TriConsumer<BlockPos, BlockState, CompoundTag> consumer) {
 		if (hasBlocks(stack)) {
 			for (Tag block : getBlocks(stack)) {
 				CompoundTag tag = (CompoundTag) block;
 				BlockPos off = NbtUtils.readBlockPos(tag.getCompound("Pos"));
-				BlockState state = NbtUtils.readBlockState(tag.getCompound("BlockState"));
+				BlockState state = NbtUtils.readBlockState(world.holderLookup(Registries.BLOCK), tag.getCompound("BlockState"));
 				CompoundTag data = tag.getCompound("BlockEntityData");
 				data.remove("x");
 				data.remove("y");

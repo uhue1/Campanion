@@ -1,13 +1,19 @@
 package com.terraformersmc.campanion.client.model.block;
 
-import com.mojang.datafixers.util.Pair;
 import com.terraformersmc.campanion.platform.services.ClientServices;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 public class BridgePlanksUnbakedModel implements UnbakedModel {
@@ -17,12 +23,11 @@ public class BridgePlanksUnbakedModel implements UnbakedModel {
 	}
 
 	@Override
-	public Collection<Material> getMaterials(Function<ResourceLocation, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
+	public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> unbakedModelGetter) {
 		List<Material> list = new ArrayList<>();
 		Collections.addAll(list, BridgePlanksBakedModel.PLANKS);
 		list.add(BridgePlanksBakedModel.ROPE);
 		list.add(BridgePlanksBakedModel.STOPPER);
-		return list;
 	}
 
 	@Override

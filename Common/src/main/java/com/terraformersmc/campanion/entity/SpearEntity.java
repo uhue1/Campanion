@@ -82,7 +82,8 @@ public class SpearEntity extends AbstractArrow {
 		}
 
 		Entity owner = this.getOwner();
-		DamageSource damageSource = createSpearDamageSource(this, owner == null ? this : owner);
+
+		DamageSource damageSource = level().damageSources().trident(this, owner);
 		SoundEvent soundEvent = CampanionSoundEvents.SPEAR_HIT_FLESH;
 		if (hitEntity.hurt(damageSource, damage)) {
 			if (hitEntity.getType() == EntityType.ENDERMAN) {
@@ -166,10 +167,4 @@ public class SpearEntity extends AbstractArrow {
 	static {
 		ENCHANTMENT_GLINT = SynchedEntityData.defineId(net.minecraft.world.entity.projectile.ThrownTrident.class, EntityDataSerializers.BOOLEAN);
 	}
-
-	public static DamageSource createSpearDamageSource(Entity spear, Entity owner) {
-		return new IndirectEntityDamageSource("spear", spear, owner).setProjectile();
-	}
-
-
 }

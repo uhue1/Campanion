@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,9 +20,9 @@ public class CampanionBlocks {
 	private static final Map<ResourceLocation, Item> ITEMS = new LinkedHashMap<>();
 	private static final Map<ResourceLocation, Block> BLOCKS = new LinkedHashMap<>();
 
-	public static final Block ROPE_BRIDGE_POST = add("rope_bridge_post", new RopeBridgePostBlock(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(1.0F, 1.0F).dynamicShape().noOcclusion()), Campanion.TAB);
-	public static final Block ROPE_BRIDGE_PLANKS = add("rope_bridge_planks", new RopeBridgePlanksBlock(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(0.5F, 1.0F).dynamicShape().noOcclusion().noLootTable()), Campanion.TAB);
-	public static final Block ROPE_LADDER = add("rope_ladder", new RopeLadderBlock(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().destroyTime(0.2F).sound(SoundType.LADDER).noLootTable()), Campanion.TAB);
+	public static final Block ROPE_BRIDGE_POST = add("rope_bridge_post", new RopeBridgePostBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(1.0F, 1.0F).dynamicShape().noOcclusion()), Campanion.TAB);
+	public static final Block ROPE_BRIDGE_PLANKS = add("rope_bridge_planks", new RopeBridgePlanksBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(0.5F, 1.0F).dynamicShape().noOcclusion().noLootTable()), Campanion.TAB);
+	public static final Block ROPE_LADDER = add("rope_ladder", new RopeLadderBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(0.2F).sound(SoundType.LADDER).noLootTable()), Campanion.TAB);
 
 	public static final List<Block> LAWN_CHAIRS = new ArrayList<>(16);
 	public static final Block WHITE_LAWN_CHAIR = createLawnChair("white");
@@ -43,7 +42,7 @@ public class CampanionBlocks {
 	public static final Block RED_LAWN_CHAIR = createLawnChair("red");
 	public static final Block BLACK_LAWN_CHAIR = createLawnChair("black");
 
-	public static final Block LEATHER_TANNER = add("leather_tanner", new LeatherTanner(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().sound(SoundType.WOOD)), Campanion.TAB);
+	public static final Block LEATHER_TANNER = add("leather_tanner", new LeatherTanner(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD)), Campanion.TAB);
 
 	public static final List<Block> TENT_SIDES = new ArrayList<>(16);
 	public static final TentSideBlock WHITE_TENT_SIDE = tentSide(DyeColor.WHITE);
@@ -117,14 +116,14 @@ public class CampanionBlocks {
 	public static final TentTopFlatBlock RED_FLAT_TENT_TOP = tentTopFlat(DyeColor.RED);
 	public static final TentTopFlatBlock BLACK_FLAT_TENT_TOP = tentTopFlat(DyeColor.BLACK);
 
-	public static final Block TENT_POLE = add("tent_pole", new TentPoleBlock(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().destroyTime(-1F).explosionResistance(1200F).sound(SoundType.WOOD)));
+	public static final Block TENT_POLE = add("tent_pole", new TentPoleBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(-1F).explosionResistance(1200F).sound(SoundType.WOOD)));
 
-	public static final FlareBlock FLARE_BLOCK = add("flare_block", new FlareBlock(BlockBehaviour.Properties.of(Material.EXPLOSIVE).lightLevel(state -> 14)));
+	public static final FlareBlock FLARE_BLOCK = add("flare_block", new FlareBlock(BlockBehaviour.Properties.of().lightLevel(state -> 14)));
 
 	private static <B extends Block> B add(String name, B block, CreativeModeTab tab) {
 		Item.Properties settings = new Item.Properties();
 		if (tab != null) {
-			settings.tab(tab);
+			// TODO: Tabs
 		}
 		return add(name, block, new BlockItem(block, settings));
 	}
@@ -164,32 +163,32 @@ public class CampanionBlocks {
 
 
 	private static TentSideBlock tentSide(DyeColor color) {
-		TentSideBlock block = add(color.getName() + "_tent_side", new TentSideBlock(BlockBehaviour.Properties.of(Material.WOOL).noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
+		TentSideBlock block = add(color.getName() + "_tent_side", new TentSideBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
 		TENT_SIDES.add(block);
 		return block;
 	}
 
 	private static TentTopBlock tentTop(DyeColor color) {
-		TentTopBlock block = add(color.getName() + "_tent_top", new TentTopBlock(BlockBehaviour.Properties.of(Material.WOOL).noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
+		TentTopBlock block = add(color.getName() + "_tent_top", new TentTopBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
 		TENT_TOPS.add(block);
 		return block;
 	}
 
 	private static TentTopPoleBlock toppedTentPole(DyeColor color) {
-		TentTopPoleBlock block = add(color.getName() + "_topped_tent_pole", new TentTopPoleBlock(BlockBehaviour.Properties.of(Material.WOOL).noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
+		TentTopPoleBlock block = add(color.getName() + "_topped_tent_pole", new TentTopPoleBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
 		TOPPED_TENT_POLES.add(block);
 		return block;
 	}
 
 	private static TentTopFlatBlock tentTopFlat(DyeColor color) {
-		TentTopFlatBlock block = add(color.getName() + "_flat_tent_top", new TentTopFlatBlock(BlockBehaviour.Properties.of(Material.WOOL).noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
+		TentTopFlatBlock block = add(color.getName() + "_flat_tent_top", new TentTopFlatBlock(BlockBehaviour.Properties.of().noOcclusion().destroyTime(1F).explosionResistance(1200F).sound(SoundType.WOOL), color));
 		FLAT_TENT_TOPS.add(block);
 		return block;
 	}
 
 
 	private static LawnChairBlock createLawnChair(String color) {
-		LawnChairBlock block = add(color + "_lawn_chair", new LawnChairBlock(BlockBehaviour.Properties.of(Material.WOOD).noOcclusion().sound(SoundType.WOOD)), Campanion.TAB);
+		LawnChairBlock block = add(color + "_lawn_chair", new LawnChairBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD)), Campanion.TAB);
 		LAWN_CHAIRS.add(block);
 		return block;
 	}

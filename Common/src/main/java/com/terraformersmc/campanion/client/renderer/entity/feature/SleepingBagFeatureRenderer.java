@@ -2,7 +2,8 @@ package com.terraformersmc.campanion.client.renderer.entity.feature;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+
+import com.mojang.math.Axis;
 import com.terraformersmc.campanion.Campanion;
 import com.terraformersmc.campanion.client.model.entity.SleepingBagModel;
 import net.minecraft.client.Camera;
@@ -42,9 +43,9 @@ public enum SleepingBagFeatureRenderer {
 		double theta = Math.toRadians(entity.getViewYRot(tickDelta));
 		matrices.translate(size*-Math.sin(theta), entity instanceof RemotePlayer ? -0.55D : 0.15D, size*Math.cos(theta));
 
-		matrices.mulPose(Vector3f.YP.rotationDegrees(270 - entity.getViewYRot(tickDelta)));
-		matrices.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
-		matrices.mulPose(Vector3f.YP.rotationDegrees(270.0F));
+		matrices.mulPose(Axis.YP.rotationDegrees(270 - entity.getViewYRot(tickDelta)));
+		matrices.mulPose(Axis.ZP.rotationDegrees(90.0F));
+		matrices.mulPose(Axis.YP.rotationDegrees(270.0F));
 
 		matrices.scale(-1.0F, -1.0F, 1.0F);
 		matrices.scale(0.9375F, 0.9375F, 0.9375F);

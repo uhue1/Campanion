@@ -39,7 +39,7 @@ public class FakeWorld extends ClientLevel {
 			((AccessorBiomeAccess) CLIENT.level.getBiomeManager()).getBiomeZoomSeed());
 		updatePositioning(basePos, lightOverride);
 		PlaceableTentItem tent = (PlaceableTentItem) stack.getItem();
-		tent.traverseBlocks(stack, (pos, state, tag) -> {
+		tent.traverseBlocks(this, stack, (pos, state, tag) -> {
 			this.blockStateMap.put(pos, state);
 			if (!tag.isEmpty()) {
 				this.blockEntityTagMap.put(pos, tag);

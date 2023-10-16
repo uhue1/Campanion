@@ -2,6 +2,7 @@ package com.terraformersmc.campanion.network;
 
 import com.terraformersmc.campanion.item.PlaceableTentItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
@@ -23,7 +24,7 @@ public class C2SRotateHeldItem {
 			for (Tag block : stack.getOrCreateTag().getList("Blocks", 10)) {
 				CompoundTag tag = (CompoundTag) block;
 				BlockPos off = NbtUtils.readBlockPos(tag.getCompound("Pos"));
-				BlockState state = NbtUtils.readBlockState(tag.getCompound("BlockState"));
+				BlockState state = NbtUtils.readBlockState(player.level().holderLookup(Registries.BLOCK), tag.getCompound("BlockState"));
 				CompoundTag data = tag.getCompound("BlockEntityData");
 
 				BlockPos rotatedPos = StructureTemplate.transform(off, Mirror.NONE, Rotation.CLOCKWISE_90, BlockPos.ZERO);

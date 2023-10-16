@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -51,7 +52,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public CreativeModeTab createItemGroup(String name, Supplier<ItemStack> stack) {
-		return FabricItemGroup.builder().icon(stack).build();
+		return FabricItemGroup.builder().title(Component.literal(name)).icon(stack).build();
 		//new ResourceLocation(Campanion.MOD_ID, name)
 	}
 
