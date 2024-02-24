@@ -1,20 +1,26 @@
 package com.terraformersmc.campanion.data;
 
+import com.terraformersmc.campanion.Campanion;
 import com.terraformersmc.campanion.item.CampanionItems;
 import com.terraformersmc.campanion.tag.CampanionBlockTags;
 import com.terraformersmc.campanion.tag.CampanionItemTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 public class CampanionItemTagsGenerator extends ItemTagsProvider {
-	public CampanionItemTagsGenerator(DataGenerator generator, BlockTagsProvider blockTagsProvider) {
-		super(generator, blockTagsProvider);
+	public CampanionItemTagsGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> tagLookup, ExistingFileHelper existingFileHelper) {
+		super(packOutput, lookupProvider, tagLookup, Campanion.MOD_ID, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.@NotNull Provider provider) {
 		this.copy(CampanionBlockTags.LAWN_CHAIRS, CampanionItemTags.LAWN_CHAIRS);
 		this.copy(CampanionBlockTags.TENT_SIDES, CampanionItemTags.TENT_SIDES);
 		this.copy(CampanionBlockTags.TENT_TOPS, CampanionItemTags.TENT_TOPS);
@@ -32,6 +38,5 @@ public class CampanionItemTagsGenerator extends ItemTagsProvider {
 		this.tag(CampanionItemTags.PROTEINS).add(Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_COD, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP, Items.COOKED_RABBIT, Items.COOKED_SALMON);
 		this.tag(CampanionItemTags.VEGETABLES).add(Items.BEETROOT, Items.CARROT, Items.POTATO, Items.BAKED_POTATO);
 		this.tag(CampanionItemTags.MRE_COMPONENTS).addTag(CampanionItemTags.FRUITS).addTag(CampanionItemTags.GRAINS).addTag(CampanionItemTags.PROTEINS).addTag(CampanionItemTags.VEGETABLES);
-
 	}
 }

@@ -19,7 +19,6 @@ import net.minecraft.Util;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -33,11 +32,10 @@ public class Campanion {
 	public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
 	public static final Logger LOG = LoggerFactory.getLogger("Campanion");
 
-	public static CreativeModeTab TAB;
+	//public static CreativeModeTab TAB;
 
 	public static void init() {
-		TAB = Services.PLATFORM.createItemGroup("items", () -> CampanionItems.SMORE.asItem().getDefaultInstance());
-
+		//TAB = Services.PLATFORM.createItemGroup("items", () -> CampanionItems.SMORE.asItem().getDefaultInstance());
 
 		CampanionConfigManager.initializeConfig();
 

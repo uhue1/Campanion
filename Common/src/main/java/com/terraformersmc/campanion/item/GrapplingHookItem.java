@@ -36,6 +36,9 @@ public class GrapplingHookItem extends Item {
 				user.setGrapplingHook(hookEntity);
 				world.addFreshEntity(hookEntity);
 				itemStack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(hand));
+
+				//3s cooldown added
+				player.getCooldowns().addCooldown(this, 60);
 			}
 
 			player.awardStat(Stats.ITEM_USED.get(this));

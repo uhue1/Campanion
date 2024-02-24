@@ -1,18 +1,24 @@
 package com.terraformersmc.campanion.data;
 
+import com.terraformersmc.campanion.Campanion;
 import com.terraformersmc.campanion.block.CampanionBlocks;
 import com.terraformersmc.campanion.tag.CampanionBlockTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 public class CampanionBlockTagsGenerator extends BlockTagsProvider {
-	public CampanionBlockTagsGenerator(DataGenerator generator) {
-		super(generator);
+	public CampanionBlockTagsGenerator(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+		super(packOutput, lookupProvider, Campanion.MOD_ID, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.@NotNull Provider provider) {
 		this.tag(CampanionBlockTags.LAWN_CHAIRS).add(CampanionBlocks.LAWN_CHAIRS.toArray(Block[]::new));
 		this.tag(CampanionBlockTags.TENT_SIDES).add(CampanionBlocks.TENT_SIDES.toArray(Block[]::new));
 		this.tag(CampanionBlockTags.TENT_TOPS).add(CampanionBlocks.TENT_TOPS.toArray(Block[]::new));

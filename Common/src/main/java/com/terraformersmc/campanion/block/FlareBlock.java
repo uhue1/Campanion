@@ -42,11 +42,13 @@ public class FlareBlock extends Block {
 		return canSupportCenter(world, pos.below(), Direction.UP);
 	}
 
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+	@Override
+	public void animateTick(@NotNull BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
 		double d = (double) pos.getX() + 0.5D;
 		double e = (double) pos.getY() + 0.2D;
 		double f = (double) pos.getZ() + 0.5D;
 		world.addParticle(ParticleTypes.LAVA, d, e, f, 0.0D, 0.0D, 0.0D);
+		super.animateTick(state, world, pos, random);
 	}
 
 	@Override

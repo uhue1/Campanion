@@ -3,6 +3,7 @@ package com.terraformersmc.campanion;
 import com.terraformersmc.campanion.block.CampanionBlocks;
 import com.terraformersmc.campanion.blockentity.CampanionBlockEntities;
 import com.terraformersmc.campanion.client.BridgePlanksUnbakedGeometry;
+import com.terraformersmc.campanion.data.CampanionCreativeModeTabs;
 import com.terraformersmc.campanion.data.ForgeDataGenerators;
 import com.terraformersmc.campanion.entity.CampanionEntities;
 import com.terraformersmc.campanion.item.CampanionItems;
@@ -31,6 +32,8 @@ public class CampanionForge {
 
 		FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
 		IEventBus modEventBus = context.getModEventBus();
+
+		CampanionCreativeModeTabs.registerModeTab(modEventBus);
 
 		modEventBus.addListener(ForgeDataGenerators::gatherDataGens);
 

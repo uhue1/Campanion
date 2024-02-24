@@ -1,38 +1,33 @@
 package com.terraformersmc.campanion.data;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
 import com.terraformersmc.campanion.block.CampanionBlocks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.Set;
 
-public class CampanionLootTablesGenerator extends LootTableProvider {
-
-	public CampanionLootTablesGenerator(DataGenerator generator) {
-		super(generator);
+public class CampanionLootTablesGenerator {
+	public static LootTableProvider create(PackOutput output) {
+		return new LootTableProvider(output, Set.of(), List.of(
+			new LootTableProvider.SubProviderEntry(CampanionBlockLoot::new, LootContextParamSets.BLOCK)
+		));
 	}
 
-	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-		return ImmutableList.of(Pair.of(CampanionBlockLoot::new, LootContextParamSets.BLOCK));
-	}
+	public static class CampanionBlockLoot extends BlockLootSubProvider {
+		protected CampanionBlockLoot() {
+			super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+		}
 
-	public static class CampanionBlockLoot extends BlockLoot {
 		@Override
-		protected void addTables() {
+		protected void generate() {
 			this.dropSelf(CampanionBlocks.ROPE_BRIDGE_POST);
 			this.dropSelf(CampanionBlocks.TENT_POLE);
 
@@ -128,7 +123,7 @@ public class CampanionLootTablesGenerator extends LootTableProvider {
 		}
 
 		@Override
-		protected Iterable<Block> getKnownBlocks() {
+		protected @NotNull Iterable<Block> getKnownBlocks() {
 			return CampanionBlocks.getBlocks().values();
 		}
 	}
